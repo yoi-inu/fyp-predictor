@@ -48,7 +48,7 @@ def hello():
 def randomForest():
 	response = "I ran the random forest classifer and got"
 	# retVal = subprocess.check_output(["python", "06.py"])
-	retVal = classifer()
+	retVal = classifier()
 	response = response +  " and accuracy of " + str(retVal) + "%"
 	return response
 
