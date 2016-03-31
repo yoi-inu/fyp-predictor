@@ -8,19 +8,6 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
-
-@app.route("/RandomForest")
-def randomForest():
-	response = "I ran the random forest classifer and got"
-	# retVal = subprocess.check_output(["python", "06.py"])
-	retVal = classifer()
-	response = response +  " and accuracy of " + str(retVal) + "%"
-	return response
-
 def classifier():
 	dataset = np.loadtxt("normalized.csv", delimiter=",")
 
@@ -50,6 +37,20 @@ def classifier():
 
 	accuracy = float(num_correct)/float(i)
 	return (accuracy*100)
+
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
+@app.route("/RandomForest")
+def randomForest():
+	response = "I ran the random forest classifer and got"
+	# retVal = subprocess.check_output(["python", "06.py"])
+	retVal = classifer()
+	response = response +  " and accuracy of " + str(retVal) + "%"
+	return response
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
