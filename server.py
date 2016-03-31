@@ -1,6 +1,7 @@
 import os
 import subprocess
 import numpy as np
+from flask.ext.cors import CORS
 from flask import render_template
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier
@@ -9,6 +10,7 @@ from flask import Flask
 from flask import request
 
 app = Flask(__name__)
+CORS(app)
 
 def classifier():
 
