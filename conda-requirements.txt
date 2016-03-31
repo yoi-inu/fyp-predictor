@@ -1,4 +1,0 @@
-nomkl
-scipy
-numpy
-scikit-learn
