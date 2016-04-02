@@ -6,36 +6,119 @@
 <body>
 <!--
 age,sex,cp,trestbps,chol,fbs,restecg,maxhr,exang,oldpeak,slope,num
-63,1,1,145,233,1,2,150,0,2.3,3,0
 43,1,4,120,177,0,2,120,1,2.5,2,1
 54,0,3,135,304,1,0,170,0,0,1,0
+59,1,4,110,239,0,2,142,1,1.2,2,1
+54,1,4,110,239,0,0,126,1,2.8,2,1
+
 -->
-<h2>Test 1</h2>
-<form action="/svm" method="GET">
-	<input type="text" name="age"	 	value="63" /><br />
-	<input type="text" name="gender"	value="1" /><br />
-	<input type="text" name="restbp"	value="145" /><br />
-	<input type="text" name="chol"	 	value="233"/><br />
-	<input type="text" name="fbs"	 	value="1"/><br />
-	<input type="text" name="restecg"	 	value="2"/><br />
-	<input type="text" name="maxhr"	 	value="150"/><br />
-	<p>Answer should be 0</p>
-	<input type="submit" value="Send Test1" />
-</form>	
+<table style="width: 100%; text-align: center" cellpadding="30">
+<tr>
+<td>
+	<h2>Test 1</h2>
+	<p>59,1,110,239,0,2,142,1</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="59" /><br />
+		<input type="text" name="gender"	value="1" /><br />
+		<input type="text" name="restbp"	value="110" /><br />
+		<input type="text" name="chol"	 	value="239"/><br />
+		<input type="text" name="fbs"	 	value="0"/><br />
+		<input type="text" name="restecg"	 	value="2"/><br />
+		<input type="text" name="maxhr"	 	value="142"/><br />
+		<p>Answer should be 1</p>
+		<input type="submit" value="Send Test1" />
+	</form>	
+</td>
+<td>
+	<h2>Test 2</h2>
+	<p>54,0,135,304,1,0,170,0</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="54" /><br />
+		<input type="text" name="gender"	value="0" /><br />
+		<input type="text" name="restbp"	value="135" /><br />
+		<input type="text" name="chol"	 	value="304"/><br />
+		<input type="text" name="fbs"	 	value="1"/><br />
+		<input type="text" name="restecg"	 	value="0"/><br />
+		<input type="text" name="maxhr"	 	value="170"/><br />
+		<p>Answer should be 0</p>
+		<input type="submit" value="Send Test3" />
+	</form>	
+</td>
+<td>
+	<h2>Test 3</h2>
+	<p>43,1,120,177,0,2,120,1</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="43" /><br />
+		<input type="text" name="gender"	value="1" /><br />
+		<input type="text" name="restbp"	value="120" /><br />
+		<input type="text" name="chol"	 	value="177"/><br />
+		<input type="text" name="fbs"	 	value="1"/><br />
+		<input type="text" name="restecg"	 	value="2"/><br />
+		<input type="text" name="maxhr"	 	value="150"/><br />
+		<p>Answer should be 1</p>
+		<input type="submit" value="Send Test2" />
+	</form>	
+</td>
+</tr>
+<tr>
+<td>
+	<h2>Test 4</h2>
+	<p>54,1,110,239,0,0,126,1</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="54" /><br />
+		<input type="text" name="gender"	value="1" /><br />
+		<input type="text" name="restbp"	value="110" /><br />
+		<input type="text" name="chol"	 	value="239"/><br />
+		<input type="text" name="fbs"	 	value="0"/><br />
+		<input type="text" name="restecg"	 	value="0"/><br />
+		<input type="text" name="maxhr"	 	value="126"/><br />
+		<p>Answer should be 1</p>
+		<input type="submit" value="Send Test2" />
+	</form>	
+</td>
+<td>
+	<h2>Test 5</h2>
+	<p>51,1,140,299,0,0,173,1</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="51" /><br />
+		<input type="text" name="gender"	value="1" /><br />
+		<input type="text" name="restbp"	value="140" /><br />
+		<input type="text" name="chol"	 	value="299"/><br />
+		<input type="text" name="fbs"	 	value="0"/><br />
+		<input type="text" name="restecg"	 	value="0"/><br />
+		<input type="text" name="maxhr"	 	value="173"/><br />
+		<p>Answer should be 1</p>
+		<input type="submit" value="Send Test2" />
+	</form>
+</td>
+<td>
+	<h2>Test 6</h2>
+	<p>42,1,120,240,1,0,194,0</p>
+	<form action="/svm" method="GET">
+		<input type="text" name="age"	 	value="42" /><br />
+		<input type="text" name="gender"	value="1" /><br />
+		<input type="text" name="restbp"	value="120" /><br />
+		<input type="text" name="chol"	 	value="240"/><br />
+		<input type="text" name="fbs"	 	value="1"/><br />
+		<input type="text" name="restecg"	 	value="0"/><br />
+		<input type="text" name="maxhr"	 	value="194"/><br />
+		<p>Answer should be 0</p>
+		<input type="submit" value="Send Test2" />
+	</form>
+</td>
+</tr>
+</table>
+
+
 
 <br />
 <br />
 
-<form action="/svm" method="GET">
-	<input type="text" name="age"	 	value="43" /><br />
-	<input type="text" name="gender"	value="1" /><br />
-	<input type="text" name="restbp"	value="120" /><br />
-	<input type="text" name="chol"	 	value="177"/><br />
-	<input type="text" name="fbs"	 	value="1"/><br />
-	<input type="text" name="restecg"	 	value="2"/><br />
-	<input type="text" name="maxhr"	 	value="150"/><br />
-	<p>Answer should be 1</p>
-	<input type="submit" value="Send Test2" />
-</form>	
+
+
+<br />
+<br />
+
+
 </body>
 </html>

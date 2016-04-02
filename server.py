@@ -4,9 +4,9 @@ import subprocess
 
 # Flask related libs
 from flask import Flask
-from flask.ext.cors import CORS
 from flask import request
 from flask import render_template
+from flask.ext.cors import CORS, cross_origin
 
 # ML Libs
 import numpy as np
@@ -15,16 +15,62 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 
 
-app = Flask(__name__)
-CORS(app)
+from datetime import timedelta
+from flask import make_response, request, current_app
+from functools import update_wrapper
 
-def classify(age,gender,restbp,chol,fbs,restecg,maxhr):
+app = Flask(__name__)
+# CORS(app)
+
+def crossdomain(origin=None, methods=None, headers=None,
+                max_age=21600, attach_to_all=True,
+                automatic_options=True):
+    if methods is not None:
+        methods = ', '.join(sorted(x.upper() for x in methods))
+    if headers is not None and not isinstance(headers, basestring):
+        headers = ', '.join(x.upper() for x in headers)
+    if not isinstance(origin, basestring):
+        origin = ', '.join(origin)
+    if isinstance(max_age, timedelta):
+        max_age = max_age.total_seconds()
+
+    def get_methods():
+        if methods is not None:
+            return methods
+
+        options_resp = current_app.make_default_options_response()
+        return options_resp.headers['allow']
+
+    def decorator(f):
+        def wrapped_function(*args, **kwargs):
+            if automatic_options and request.method == 'OPTIONS':
+                resp = current_app.make_default_options_response()
+            else:
+                resp = make_response(f(*args, **kwargs))
+            if not attach_to_all and request.method != 'OPTIONS':
+                return resp
+
+            h = resp.headers
+
+            h['Access-Control-Allow-Origin'] = origin
+            h['Access-Control-Allow-Methods'] = get_methods()
+            h['Access-Control-Max-Age'] = str(max_age)
+            if headers is not None:
+                h['Access-Control-Allow-Headers'] = headers
+            return resp
+
+        f.provide_automatic_options = False
+        return update_wrapper(wrapped_function, f)
+    return decorator
+
+
+def classify(age,sex,restbp,chol,fbs,restecg,maxhr):
 
 	min_age = 29 
 	max_age = 77 
 	avg_age = 54.4389438944
 
-	# gender not normalized - binary
+	# sex not normalized - binary
 
 	min_restbp = 94 
 	max_restbp = 200 
@@ -51,7 +97,7 @@ def classify(age,gender,restbp,chol,fbs,restecg,maxhr):
 
 	# First, normalize each of them
 	n_age = float(age - min_age) / float(max_age-min_age)
-	n_gender = gender # Leave as is!
+	n_sex = sex # Leave as is!
 
 	if(restbp<0):
 		n_restbp = avg_restbp
@@ -83,7 +129,7 @@ def classify(age,gender,restbp,chol,fbs,restecg,maxhr):
 	# Build the feature row
 	row = [];
 	row.append(n_age)
-	row.append(n_gender)
+	row.append(n_sex)
 	row.append(n_restbp)
 	row.append(n_chol)
 	row.append(n_fbs)
@@ -101,18 +147,19 @@ def classify(age,gender,restbp,chol,fbs,restecg,maxhr):
 	model = joblib.load('trainedModel/pickled_svm.pkl')
 	prediction = model.predict(inp_set)
 	print prediction
-	return prediction
+	return int(prediction[0])
 
 @app.route("/")
 def hello():
     return render_template('home.html')
 
 
-@app.route('/svm')
+@app.route('/svm', methods=['GET'])
+@crossdomain(origin='*')
 def svm():
 
 	age = float(request.args.get("age"))
-	gender = int(request.args.get("gender"))
+	sex = int(request.args.get("sex"))
 	restbp = float(request.args.get("restbp"))
 
 	chol = float(request.args.get("chol"))
@@ -121,8 +168,13 @@ def svm():
 	restecg = float(request.args.get("restecg"))
 	maxhr = float(request.args.get("maxhr"))
 
-	prediction = classify(age,gender,restbp,chol,fbs,restecg,maxhr)
-	return str(prediction)
+	prediction = classify(age,sex,restbp,chol,fbs,restecg,maxhr)
+	
+	if(prediction<1):
+		return str(0)
+	else:
+		return str(1)
+
 
 
 if __name__ == "__main__":
