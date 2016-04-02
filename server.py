@@ -6,12 +6,12 @@ import subprocess
 from flask import Flask
 from flask import request
 from flask import render_template
-from flask.ext.cors import CORS, cross_origin
+# from flask.ext.cors import CORS, cross_origin
 
 # ML Libs
 import numpy as np
 from sklearn import preprocessing
-from sklearn.ensemble import RandomForestClassifier
+# from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 
 
