@@ -1,68 +1,129 @@
+# Generic libs:
 import os
 import subprocess
-import numpy as np
+
+# Flask related libs
+from flask import Flask
 from flask.ext.cors import CORS
+from flask import request
 from flask import render_template
+
+# ML Libs
+import numpy as np
 from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.externals import joblib
 
-from flask import Flask
-from flask import request
 
 app = Flask(__name__)
 CORS(app)
 
-def classifier():
+def classify(age,gender,restbp,chol,fbs,restecg,maxhr):
 
-	age = request.args.get("age")
-	gender = request.args.get("gender")
-	rest_bp = request.args.get("rest_bp")
-	fbs = request.args.get("fbs")
+	min_age = 29 
+	max_age = 77 
+	avg_age = 54.4389438944
 
-	print age, gender, rest_bp, fbs
+	# gender not normalized - binary
 
-	clevelandCSV = np.loadtxt("cleveland-4.csv", delimiter=";")
+	min_restbp = 94 
+	max_restbp = 200 
+	avg_restbp = 131.689768977
 
-	trainingFeatures = clevelandCSV[:, 0:4]
-	trainingLabels = clevelandCSV[:, 4]
+	min_chol = 126 
+	max_chol = 564 
+	avg_chol = 246.693069307
 
-	testingFeatures = []
-	testingFeatures.append(float(age))
-	testingFeatures.append(float(gender))
-	testingFeatures.append(float(rest_bp))
-	testingFeatures.append(float(fbs))
+	# fbs - not normalized - binary, but if missing using avg
+	avg_fbs = 0.148514851485
 
-	print testingFeatures
+	min_restecg = 0 
+	max_restecg = 2 
+	avg_restecg = 0.990099009901
 
-	testingFeatures = [testingFeatures]
-	testingFeatures_X = []
-	testingFeatures_X = np.array(testingFeatures)
+	min_maxhr = 72 
+	max_maxhr = 202 
+	avg_maxhr = 149.607260726
 
-	testingFeatures = testingFeatures_X
-	# trainingFeatures = preprocessing.scale(trainingFeatures)
-	# testingFeatures = preprocessing.scale(testingFeatures)
+	# Assuming exang to be missing from input
+	avg_exang = 0.326732673267
 
-	model = RandomForestClassifier(n_estimators=200)
-	model = model.fit(trainingFeatures, trainingLabels)
 
-	predictedLabels = model.predict(testingFeatures)
+	# First, normalize each of them
+	n_age = float(age - min_age) / float(max_age-min_age)
+	n_gender = gender # Leave as is!
 
-	return int(predictedLabels[0])
+	if(restbp<0):
+		n_restbp = avg_restbp
+	else:
+		n_restbp = float(restbp - min_restbp) / float(max_restbp-min_restbp)
 
+	if(chol<0):
+		n_chol = avg_chol
+	else:
+		n_chol = float(chol - min_chol) / float(max_chol-min_chol)
+
+	if(fbs<0):
+		n_fbs = avg_fbs
+	else:
+		n_fbs = fbs
+
+	if(restecg<0):
+		n_restecg = avg_restecg
+	else:
+		n_restecg = float(restecg - min_restecg) / float(max_restecg-min_restecg)
+
+	if(maxhr<0):
+		n_maxhr = avg_maxhr
+	else:
+		n_maxhr = float(maxhr - min_maxhr) / float(max_maxhr-min_maxhr)
+
+	n_exang = avg_exang
+
+	# Build the feature row
+	row = [];
+	row.append(n_age)
+	row.append(n_gender)
+	row.append(n_restbp)
+	row.append(n_chol)
+	row.append(n_fbs)
+	row.append(n_restecg)
+	row.append(n_maxhr)
+	row.append(n_exang)
+
+	inp = [row]
+
+	# Make it a NumPy array
+	inp_set = np.array(inp)
+	# print "NP Array: ", inp_set
+	print "Classifying: ", inp
+	# Load the pickled predictor
+	model = joblib.load('trainedModel/pickled_svm.pkl')
+	prediction = model.predict(inp_set)
+	print prediction
+	return prediction
 
 @app.route("/")
 def hello():
     return render_template('home.html')
 
 
-@app.route("/RandomForest")
-def randomForest():
-	response = "I ran the random forest classifer and got"
-	# retVal = subprocess.check_output(["python", "06.py"])
-	retVal = classifier()
-	#response = response +  " and accuracy of " + str(retVal) + "%"
-	response = response + str(retVal)
-	return str(retVal)
+@app.route('/svm')
+def svm():
+
+	age = float(request.args.get("age"))
+	gender = int(request.args.get("gender"))
+	restbp = float(request.args.get("restbp"))
+
+	chol = float(request.args.get("chol"))
+	
+	fbs = float(request.args.get("fbs"))
+	restecg = float(request.args.get("restecg"))
+	maxhr = float(request.args.get("maxhr"))
+
+	prediction = classify(age,gender,restbp,chol,fbs,restecg,maxhr)
+	return str(prediction)
+
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))

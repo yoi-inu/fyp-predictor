@@ -4,13 +4,38 @@
 	<title>Hi</title>
 </head>
 <body>
+<!--
+age,sex,cp,trestbps,chol,fbs,restecg,maxhr,exang,oldpeak,slope,num
+63,1,1,145,233,1,2,150,0,2.3,3,0
+43,1,4,120,177,0,2,120,1,2.5,2,1
+54,0,3,135,304,1,0,170,0,0,1,0
+-->
+<h2>Test 1</h2>
+<form action="/svm" method="GET">
+	<input type="text" name="age"	 	value="63" /><br />
+	<input type="text" name="gender"	value="1" /><br />
+	<input type="text" name="restbp"	value="145" /><br />
+	<input type="text" name="chol"	 	value="233"/><br />
+	<input type="text" name="fbs"	 	value="1"/><br />
+	<input type="text" name="restecg"	 	value="2"/><br />
+	<input type="text" name="maxhr"	 	value="150"/><br />
+	<p>Answer should be 0</p>
+	<input type="submit" value="Send Test1" />
+</form>	
 
-<form action="/RandomForest" method="GET">
-	<input type="number" name="age" placeholder="age" value="63" /><br />
-	<input type="number" name="gender" placeholder="gender" value="1" /><br />
-	<input type="number" name="rest_bp" placeholder="rest_bp" value="145" /><br />
-	<input type="number" name="fbs" placeholder="fbs" value="1"/><br />
-	<input type="submit" value="Send" />
+<br />
+<br />
+
+<form action="/svm" method="GET">
+	<input type="text" name="age"	 	value="43" /><br />
+	<input type="text" name="gender"	value="1" /><br />
+	<input type="text" name="restbp"	value="120" /><br />
+	<input type="text" name="chol"	 	value="177"/><br />
+	<input type="text" name="fbs"	 	value="1"/><br />
+	<input type="text" name="restecg"	 	value="2"/><br />
+	<input type="text" name="maxhr"	 	value="150"/><br />
+	<p>Answer should be 1</p>
+	<input type="submit" value="Send Test2" />
 </form>	
 </body>
 </html>
