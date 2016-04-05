@@ -181,7 +181,7 @@ def svm():
 	else:
 		return str(1)
 
-@app.route('/alert', methods=['POST'])
+@app.route('/alert', methods=['GET','POST'])
 @crossdomain(origin='*')
 def alert():
 
