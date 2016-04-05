@@ -181,6 +181,16 @@ def svm():
 	else:
 		return str(1)
 
+@app.route('/alert', methods=['POST'])
+@crossdomain(origin='*')
+def alert():
+
+	msg = request.form['data']
+	print "Got a request"
+	print msg
+
+	return "Ok"
+
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
