@@ -177,15 +177,15 @@ def svm():
 	maxhr = float(request.args.get("maxhr"))
 
 	prediction = classify(age,sex,restbp,chol,fbs,restecg,maxhr)
-	hold()
+	# hold()
 	if(prediction<1):
 		return str(0)
 	else:
 		return str(1)
 
-@app.route('/alert', methods=['GET'])
+@app.route('/alertemg', methods=['GET'])
 @crossdomain(origin='*')
-def alert():
+def alertemg():
 
 	# msg = request.form['data']
 	print "Received an alert!"
@@ -196,20 +196,20 @@ def alert():
 	SMSBody = "Emergency Situation! Location:" + str(latitude)
 	SMSBody = SMSBody + "," + str(longitude)
 	print "SMS Body being sent: " , SMSBody
-
-	# put your own credentials here 
-	ACCOUNT_SID = "AC7f0d7576b171275eeb549176f0a889a3" 
-	AUTH_TOKEN = "a8cbf4b14e6453a0594256b7d3702d81" 
+	retVal = "Alerted. " + SMSBody
+	# # put your own credentials here 
+	# ACCOUNT_SID = "AC7f0d7576b171275eeb549176f0a889a3" 
+	# AUTH_TOKEN = "a8cbf4b14e6453a0594256b7d3702d81" 
 	 
-	client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
+	# client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 	 
-	client.messages.create(
-		to="+919916101013", 
-		from_="+12023354404", 
-		body=SMSBody,  
-	)
+	# client.messages.create(
+	# 	to="+919916101013", 
+	# 	from_="+12023354404", 
+	# 	body=SMSBody,  
+	# )
 
-	return "Ok"
+	return retVal
 
 
 if __name__ == "__main__":
