@@ -158,7 +158,7 @@ def hello():
     return render_template('home.html')
 def hold():
 	print "Holding for "
-	s = random.uniform(3, 8)
+	s = random.uniform(3, 5)
 	print s , " units "
 	time.sleep(int(s))
 
@@ -177,7 +177,7 @@ def svm():
 	maxhr = float(request.args.get("maxhr"))
 
 	prediction = classify(age,sex,restbp,chol,fbs,restecg,maxhr)
-	# hold()
+	hold()
 	if(prediction<1):
 		return str(0)
 	else:
