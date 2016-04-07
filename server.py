@@ -159,7 +159,7 @@ def hello():
 def hold():
 	print "Holding for "
 	s = random.uniform(3, 5)
-	print s , " units "
+	print s , " units (s)"
 	time.sleep(int(s))
 
 @app.route('/svm', methods=['GET'])
