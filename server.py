@@ -192,7 +192,7 @@ def alertemg():
 	latitude =  float(request.args.get("latitude"))
 	longitude =  float(request.args.get("longitude"))
 
-	SMSBody = "Emergency! User X, Location:" + str(latitude)
+	SMSBody = "User X experiencing HeartAttack, Location:" + str(latitude)
 	SMSBody = SMSBody + "," + str(longitude)
 
 	SMSTo = "+918197749879"
@@ -205,13 +205,13 @@ def alertemg():
 	AUTH_TOKEN = "a8cbf4b14e6453a0594256b7d3702d81" 
 
 	# <start> Comment this section to disble the texts during debugging
-	# client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
+	client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 	 
-	# client.messages.create(
-	# 	to=SMSTo, 
-	# 	from_=SMSFrom, 
-	# 	body=SMSBody,  
-	# )
+	client.messages.create(
+		to=SMSTo, 
+		from_=SMSFrom, 
+		body=SMSBody,  
+	)
 	# <end> Comment this section to disble the texts during debugging 
 
 	return retVal
