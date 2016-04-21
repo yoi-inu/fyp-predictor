@@ -194,9 +194,11 @@ def alertemg():
 
 	SMSBody = "Emergency! User X, Location:" + str(latitude)
 	SMSBody = SMSBody + "," + str(longitude)
-	print "SMS Body being sent: " , SMSBody
-	retVal = "Emergency SMS Sent:\"" + SMSBody + "\""
 
+	SMSTo = "+918197749879"
+	SMSFrom = "+12023354404"
+	retVal = "Emergency SMS Sent:\n\"To: " + SMSTo + "\nContents: " + SMSBody + "\""
+	print retVal
 
 	# put your own credentials here 
 	ACCOUNT_SID = "AC7f0d7576b171275eeb549176f0a889a3" 
@@ -206,8 +208,8 @@ def alertemg():
 	# client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 	 
 	# client.messages.create(
-	# 	to="+918197749879", 
-	# 	from_="+12023354404", 
+	# 	to=SMSTo, 
+	# 	from_=SMSFrom, 
 	# 	body=SMSBody,  
 	# )
 	# <end> Comment this section to disble the texts during debugging 
