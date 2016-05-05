@@ -3,6 +3,8 @@ import os
 import time
 import subprocess
 import random
+import csv
+import math
 
 # Flask related libs
 from flask import Flask
@@ -192,8 +194,56 @@ def alertemg():
 	latitude =  float(request.args.get("latitude"))
 	longitude =  float(request.args.get("longitude"))
 
-	SMSBody = "User X experiencing HeartAttack, Location:" + str(latitude)
+	# #Location Of Hospitals
+	# locations = [
+	# 	[12.8087, 77.6946,'Narayana hrudayalaya'],
+	# 	[12.9166, 77.5996,'Jayadeva Hospital'],
+	# 	[12.8953, 77.5981,'Fortis Hospital'],
+	# 	[12.8399, 77.6770,'Electronic City'],
+	# 	[12.8971, 77.5968,'Apollo Hospital'],
+	# 	[12.9308, 77.6184,'St Johns Hospital']
+	# ]
+
+	# min = 10000
+	# i = 0
+	# flag_final = 0
+
+	# for location in locations:
+	# 	distance = location[0] - latitude
+
+	# 	if(distance < 0):
+	# 		distance = -1 * distance
+
+	# 	if(distance < min):
+	# 		min = distance
+	# 		flag_final = i
+	# 	i = i + 1
+
+	with open('locations.csv', 'r') as f:
+	  reader = csv.reader(f, delimiter=',', quotechar="'")
+	  locations = list(reader)		
+
+	min_dist = 1000
+	min_i = -1
+	i = 0
+
+	for location in locations:
+		location[0] = float(location[0])
+		location[1] = float(location[1])
+		this_dist = math.pow( ( latitude - location[0] ) , 2 ) + math.pow( ( longitude - location[1] ) , 2 )
+		print this_dist, location
+		this_dist = math.sqrt(this_dist)
+		if( this_dist < min_dist ):
+			min_dist = this_dist
+			min_i = i
+		i = i + 1
+
+
+	SMSBody = "HeartAttack! UserLocation: " + str(latitude)
 	SMSBody = SMSBody + "," + str(longitude)
+
+	SMSBody = SMSBody + ", NearestHospital: " + str(locations[min_i][2]) + " " + str(locations[min_i][0]) + "," + str(locations[min_i][0])
+
 
 	SMSTo = "+918197749879"
 	SMSFrom = "+12023354404"
