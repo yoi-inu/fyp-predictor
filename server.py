@@ -242,7 +242,7 @@ def alertemg():
 	SMSBody = "HeartAttack! UserLocation: " + str(latitude)
 	SMSBody = SMSBody + "," + str(longitude)
 
-	SMSBody = SMSBody + ", NearestHospital: " + str(locations[min_i][2]) + " " + str(locations[min_i][0]) + "," + str(locations[min_i][0])
+	SMSBody = SMSBody + ", NearestHospital: " + str(locations[min_i][2]) + " " + str(locations[min_i][0]) + "," + str(locations[min_i][1])
 
 
 	SMSTo = "+918197749879"
