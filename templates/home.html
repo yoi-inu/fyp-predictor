@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hi</title>
+	<title>Cardia - Predictor Server</title>
 	<!--Import materialize.css-->
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
@@ -72,7 +72,7 @@
 					<div class="row">
 						<div class="card-action right">
 							<input type="reset" value="Reset Values" class="btn grey">
-							<input type="submit" value="Run Test" class="btn green waves">
+							<input type="submit" value="Run Test" class="btn deep-purple darken-1 waves">
             </div>
 					</div>
 				</form>
@@ -80,51 +80,47 @@
 		</div>
 	</div>
 	<div class="col s12 m5">
-		<!-- <div class="card teal accent-1">
-			<div class="card-content">
-				<span class="card-title">Sample Tests</span>
-				<div class="collection">
-					<a href="" class="collection-item">One</a>
-					<a href="" class="collection-item">One</a>
-					<a href="" class="collection-item">One</a>
-					<a href="" class="collection-item">One</a>
-				</div>
 
-			</div>
-		</div> -->
 		 <div class="collection with-header card">
-        <div class="collection-header teal-text text-darken-2"><h5>Sample Inputs</h5></div>
+        <div class="collection-header deep-purple-text text-darken-1"><h5>Sample Inputs</h5></div>
 
-        <a 	class="collection-item"
+        <a 	class="collection-item grey-text text-darken-1"
         		href="/svm?age=59&sex=1&restbp=110&chol=239&fbs=0&restecg=2&maxhr=142" >
-        	<h5>Test 1</h5>
+        	<h5 class="deep-purple-text">Test 1</h5>
         	Age=59, Gender=Male, RestBP=110, Cholestrol=239,<br />
         	FBS=Less, RestECG=LVH, MaxHR=142 
-        	<span class="secondary-content">(1)</span>
+        	<span class="secondary-content deep-purple-text">(1)</span>
         </a>
 
-				<a 	class="collection-item"
+				<a 	class="collection-item grey-text text-darken-1"
         		href="/svm?age=54&sex=0&restbp=135&chol=304&fbs=1&restecg=0&maxhr=170" >
-        	<h5>Test 2</h5>
+        	<h5 class="deep-purple-text">Test 2</h5>
         	Age=54, Gender=Female, RestBP=135, Cholestrol=304,<br />
         	FBS=More, RestECG=Normal, MaxHR=170 
-        	<span class="secondary-content">(0)</span>
+        	<span class="secondary-content deep-purple-text">(0)</span>
         </a>
 
-        <a 	class="collection-item"
+        <a 	class="collection-item grey-text text-darken-1"
         		href="/svm?age=42&sex=1&restbp=120&chol=177&fbs=0&restecg=2&maxhr=120" >
-        	<h5>Test 3</h5>
+        	<h5 class="deep-purple-text">Test 3</h5>
         	Age=42, Gender=Male, RestBP=120, Cholestrol=177,<br />
         	FBS=Less, RestECG=LVH, MaxHR=120 
-        	<span class="secondary-content">(1)</span>
+        	<span class="secondary-content deep-purple-text">(1)</span>
         </a>
         
-        <a 	class="collection-item"
+        <a 	class="collection-item grey-text text-darken-1"
         		href="/svm?age=59&sex=1&restbp=135&chol=234&fbs=0&restecg=0&maxhr=161" >
-        	<h5>Test 4</h5>
-        	Age=42, Gender=Male, RestBP=120, Cholestrol=240,<br />
-        	FBS=More, RestECG=Normal, MaxHR=194 
-        	<span class="secondary-content">(1)</span>
+        	<h5 class="deep-purple-text">Test 4</h5>
+        	Age=59, Gender=Male, RestBP=135, Cholestrol=234,<br />
+        	FBS=Less, RestECG=Normal, MaxHR=161 
+        	<span class="secondary-content deep-purple-text">(1)</span>
+        </a>
+        <a 	class="collection-item grey-text text-darken-1"
+        		href="/svm?age=50&sex=0&restbp=135&chol=297&fbs=1&restecg=0&maxhr=161" >
+        	<h5 class="deep-purple-text">Test 5</h5>
+        	Age=50, Gender=Female, RestBP=135, Cholestrol=297,<br />
+        	FBS=More, RestECG=Normal, MaxHR=161 
+        	<span class="secondary-content deep-purple-text">(0)</span>
         </a>
       </div>
 	</div>
@@ -141,112 +137,7 @@ age,sex,cp,trestbps,chol,fbs,restecg,maxhr,exang,oldpeak,slope,num
 54,1,4,110,239,0,0,126,1,2.8,2,1
 
 -->
-<!-- <table style="width: 100%; text-align: center" cellpadding="30">
-<tr>
-<td>
-	<h2>Test 1</h2>
-	<p>59,1,110,239,0,2,142,1</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="59" /><br />
-		<input type="text" name="sex"	value="1" /><br />
-		<input type="text" name="restbp"	value="110" /><br />
-		<input type="text" name="chol"	 	value="239"/><br />
-		<input type="text" name="fbs"	 	value="0"/><br />
-		<input type="text" name="restecg"	 	value="2"/><br />
-		<input type="text" name="maxhr"	 	value="142"/><br />
-		<p>Answer should be 1</p>
-		<input type="submit" value="Send Test1" />
-	</form>	
-</td>
-<td>
-	<h2>Test 2</h2>
-	<p>54,0,135,304,1,0,170,0</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="54" /><br />
-		<input type="text" name="sex"	value="0" /><br />
-		<input type="text" name="restbp"	value="135" /><br />
-		<input type="text" name="chol"	 	value="304"/><br />
-		<input type="text" name="fbs"	 	value="1"/><br />
-		<input type="text" name="restecg"	 	value="0"/><br />
-		<input type="text" name="maxhr"	 	value="170"/><br />
-		<p>Answer should be 0</p>
-		<input type="submit" value="Send Test3" />
-	</form>	
-</td>
-<td>
-	<h2>Test 3</h2>
-	<p>43,1,120,177,0,2,120,1</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="43" /><br />
-		<input type="text" name="sex"	value="1" /><br />
-		<input type="text" name="restbp"	value="120" /><br />
-		<input type="text" name="chol"	 	value="177"/><br />
-		<input type="text" name="fbs"	 	value="1"/><br />
-		<input type="text" name="restecg"	 	value="2"/><br />
-		<input type="text" name="maxhr"	 	value="150"/><br />
-		<p>Answer should be 1</p>
-		<input type="submit" value="Send Test2" />
-	</form>	
-</td>
-</tr>
-<tr>
-<td>
-	<h2>Test 4</h2>
-	<p>54,1,110,239,0,0,126,1</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="54" /><br />
-		<input type="text" name="sex"	value="1" /><br />
-		<input type="text" name="restbp"	value="110" /><br />
-		<input type="text" name="chol"	 	value="239"/><br />
-		<input type="text" name="fbs"	 	value="0"/><br />
-		<input type="text" name="restecg"	 	value="0"/><br />
-		<input type="text" name="maxhr"	 	value="126"/><br />
-		<p>Answer should be 1</p>
-		<input type="submit" value="Send Test2" />
-	</form>	
-</td>
-<td>
-	<h2>Test 5</h2>
-	<p>51,1,140,299,0,0,173,1</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="51" /><br />
-		<input type="text" name="sex"	value="1" /><br />
-		<input type="text" name="restbp"	value="140" /><br />
-		<input type="text" name="chol"	 	value="299"/><br />
-		<input type="text" name="fbs"	 	value="0"/><br />
-		<input type="text" name="restecg"	 	value="0"/><br />
-		<input type="text" name="maxhr"	 	value="173"/><br />
-		<p>Answer should be 1</p>
-		<input type="submit" value="Send Test2" />
-	</form>
-</td>
-<td>
-	<h2>Test 6</h2>
-	<p>42,1,120,240,1,0,194,0</p>
-	<form action="/svm" method="GET">
-		<input type="text" name="age"	 	value="42" /><br />
-		<input type="text" name="sex"	value="1" /><br />
-		<input type="text" name="restbp"	value="120" /><br />
-		<input type="text" name="chol"	 	value="240"/><br />
-		<input type="text" name="fbs"	 	value="1"/><br />
-		<input type="text" name="restecg"	 	value="0"/><br />
-		<input type="text" name="maxhr"	 	value="194"/><br />
-		<p>Answer should be 0</p>
-		<input type="submit" value="Send Test2" />
-	</form>
-</td>
-</tr>
-</table> -->
-<!-- 
 
-
-<br />
-<br />
-
-
-
-<br />
-<br /> -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
