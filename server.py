@@ -10,6 +10,7 @@ import math
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask import send_from_directory
 # from flask.ext.cors import CORS, cross_origin
 
 # ML Libs
@@ -25,7 +26,7 @@ from functools import update_wrapper
 
 from twilio.rest import TwilioRestClient 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 # CORS(app)
 
 def crossdomain(origin=None, methods=None, headers=None,
@@ -69,6 +70,22 @@ def crossdomain(origin=None, methods=None, headers=None,
         return update_wrapper(wrapped_function, f)
     return decorator
 
+# Static Files for UI
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('css', path)
+
+@app.route('/font/<path:path>')
+def send_font(path):
+    return send_from_directory('font', path)
+
+@app.route('/fonts/<path:path>')
+def send_fonts(path):
+    return send_from_directory('fonts', path)
 
 def classify(age,sex,restbp,chol,fbs,restecg,maxhr):
 

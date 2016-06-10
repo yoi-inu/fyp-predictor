@@ -2,17 +2,146 @@
 <html>
 <head>
 	<title>Hi</title>
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+
+
+<div class="row">
+	<div class="col s12 m7">
+		<div class="card blue-grey lighten-5">
+			<div class="card-content">
+				<span class="card-title">Test for Arterial Blockage</span>
+				<form action="/svm" method="GET">
+
+					<div class="row">
+						<div class="input-field col s6">
+							<input type="text" name="age" required="true" value="59">
+							<label for="age">Age</label>
+						</div>
+						
+						<div class="input-field col s6">
+							<select name="sex">
+							<option value="0">Female</option>
+							<option value="1" selected="true">Male</option>
+							</select>
+							<label for="sex">Gender</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" name="restbp" required="true" value="110">
+							<label for="restbp">Resting Blood Pressure (mm of Hg)</label>
+						</div>
+						<div class="input-field col s12">
+							<input type="text" name="chol" required="true" value="239">
+							<label for="chol">Cholestrol Level (mg/dl)</label>
+						</div>						
+					</div>
+
+					<div class="row">
+						<div class="input-field col s6">
+							<select name="fbs">
+							<option value="0" selected="true">Less than 120 mg/dl</option>
+							<option value="1" >Greater than 120 mg/dl</option>
+							</select>
+							<label for="fbs">Fasting Blood Sugar</label>
+						</div>
+						<div class="input-field col s6">
+							<select name="restecg">
+							<option value="0">Normal</option>
+							<option value="1">ST-T Wave Abnormality</option>
+							<option value="2" selected="true">Having Left-Ventricular Hypertrophy</option>
+							</select>
+							<label for="restecg">Resting ECG State</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12">
+							<input type="text" name="maxhr" required="true" value="142">
+							<label for="maxhr">Maximum Hear Rate Achieved (bpm)</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="card-action right">
+							<input type="reset" value="Reset Values" class="btn grey">
+							<input type="submit" value="Run Test" class="btn green waves">
+            </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col s12 m5">
+		<!-- <div class="card teal accent-1">
+			<div class="card-content">
+				<span class="card-title">Sample Tests</span>
+				<div class="collection">
+					<a href="" class="collection-item">One</a>
+					<a href="" class="collection-item">One</a>
+					<a href="" class="collection-item">One</a>
+					<a href="" class="collection-item">One</a>
+				</div>
+
+			</div>
+		</div> -->
+		 <div class="collection with-header card">
+        <div class="collection-header teal-text text-darken-2"><h5>Sample Inputs</h5></div>
+
+        <a 	class="collection-item"
+        		href="/svm?age=59&sex=1&restbp=110&chol=239&fbs=0&restecg=2&maxhr=142" >
+        	<h5>Test 1</h5>
+        	Age=59, Gender=Male, RestBP=110, Cholestrol=239,<br />
+        	FBS=Less, RestECG=LVH, MaxHR=142 
+        	<span class="secondary-content">(1)</span>
+        </a>
+
+				<a 	class="collection-item"
+        		href="/svm?age=54&sex=0&restbp=135&chol=304&fbs=1&restecg=0&maxhr=170" >
+        	<h5>Test 2</h5>
+        	Age=54, Gender=Female, RestBP=135, Cholestrol=304,<br />
+        	FBS=More, RestECG=Normal, MaxHR=170 
+        	<span class="secondary-content">(0)</span>
+        </a>
+
+        <a 	class="collection-item"
+        		href="/svm?age=42&sex=1&restbp=120&chol=177&fbs=0&restecg=2&maxhr=120" >
+        	<h5>Test 3</h5>
+        	Age=42, Gender=Male, RestBP=120, Cholestrol=177,<br />
+        	FBS=Less, RestECG=LVH, MaxHR=120 
+        	<span class="secondary-content">(1)</span>
+        </a>
+        
+        <a 	class="collection-item"
+        		href="/svm?age=59&sex=1&restbp=135&chol=234&fbs=0&restecg=0&maxhr=161" >
+        	<h5>Test 4</h5>
+        	Age=42, Gender=Male, RestBP=120, Cholestrol=240,<br />
+        	FBS=More, RestECG=Normal, MaxHR=194 
+        	<span class="secondary-content">(1)</span>
+        </a>
+      </div>
+	</div>
+</div>
+
+
 <!--
+<p>42,1,120,240,1,0,194,0</p>
 age,sex,cp,trestbps,chol,fbs,restecg,maxhr,exang,oldpeak,slope,num
+59.0,1.0,4.0,135.0,234.0,0.0,0.0,161.0,0.0,0.5,2.0,0.0,7.0,0
 43,1,4,120,177,0,2,120,1,2.5,2,1
 54,0,3,135,304,1,0,170,0,0,1,0
 59,1,4,110,239,0,2,142,1,1.2,2,1
 54,1,4,110,239,0,0,126,1,2.8,2,1
 
 -->
-<table style="width: 100%; text-align: center" cellpadding="30">
+<!-- <table style="width: 100%; text-align: center" cellpadding="30">
 <tr>
 <td>
 	<h2>Test 1</h2>
@@ -107,18 +236,23 @@ age,sex,cp,trestbps,chol,fbs,restecg,maxhr,exang,oldpeak,slope,num
 	</form>
 </td>
 </tr>
-</table>
-
-
-
-<br />
-<br />
-
+</table> -->
+<!-- 
 
 
 <br />
 <br />
 
 
+
+<br />
+<br /> -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+	$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
 </body>
 </html>
