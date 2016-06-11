@@ -8,6 +8,7 @@ A Python & Flask based server that receives request from the client (Cardia Mobi
   2. Receives a request to send SMS messages to Emergency Contacts via the [Twilio Messaging API](https://www.twilio.com/sms).
   
 You can see a demo [here](fyp-predictor.herokuapp.com). Note: Since it's a free-tier dyno, the app will probably be asleep & the first request will take some time to be served. Be patient =P
+
 # Requirements
 
 * Python 2.7
@@ -36,14 +37,24 @@ See '/svm' for more info.
 |`restbp`|Resting Blood Pressure|Integer|`90` to `200` in mm of Hg|
 |`chol`|Blood Cholestrol Level|Integer|`125` to `560` mg/dl|
 |`fbs`|Fasting Blood Sugar Level|Binary|`0` if `<120 mg/dl`; `1` if `>120 mg/dl`|
-|`restecg`|Resting ECG State Characteristics|Ternary|`0`: Normal ECG<br />`1`: Having ST-T Wave Abnormality [[1][tw]], [[2][sw]], [[3][ste]] <br />`2`: Having Left Ventricular Hypertrophy according to Estes' Criteria|
+|`restecg`|Resting ECG State Characteristics|Ternary|`0`: Normal ECG<br />`1`: Having ST-T Wave Abnormality [[1][tw]], [[2][sw]], [[3][ste]] <br />`2`: Having Left Ventricular Hypertrophy according to Estes' Criteria [[4]][ec]|
 |`maxhr`|Maximum Heart Rate Achieved|Integer|`70` to `200` bpm|
 
 [tw]: https://en.wikipedia.org/wiki/T_wave
 [sw]: https://en.wikipedia.org/wiki/ST_depression
 [ste]: https://en.wikipedia.org/wiki/ST_elevation
+[ec]: https://en.wikipedia.org/wiki/Left_ventricular_hypertrophy#ECG_criteria_for_LVH
 
-Loads a pickled SVM Model, parses and scales (normalizes) the input and runs the classifier and returns the prediction.
+**Functionality**:
+Loads a [pickled](scikit-learn.org/stable/modules/model_persistence.html) [SVM Model](scikit-learn.org/stable/modules/svm.html
+), parses and scales (normalizes) the input and runs the classifier and returns the prediction.
+
+**Returns/Response**: 
+
+| Value | Interpretation |
+|---:|:---|
+|0|Negative Angiographic Disease Status (No arterial blockage)|
+|1|Positive Angiographic Disease Status (Arterial blockage)|
 
 ### 3. GET '/alertemg' - Emergency Alert SMS Sender
 
@@ -64,4 +75,16 @@ To: <Number>
 Contents: Heart Attack! UserLocation: <latitude>,<longitude>,  
 NearestHospital: <Hospital_Name>, <latitude_hospital>,<longitude_hospital>
 ```
+
+# Configuration
+
+### 1. Set-up Twilio
+
+1. Create an account on [Twilio](https://www.twilio.com/try-twilio) and login.
+2. Open [this](https://www.twilio.com/user/account/phone-numbers/verified) and add the phone number for demonstration, twilio will send you an SMS for verification. This is for the free version only. Save this number for use below.
+3. Go [here](https://www.twilio.com/user/account/settings) and:  
+	a. Copy AccountSID field for use below  
+	b. Copy AuthToken field for use below  
+4. Go [here](https://www.twilio.com/user/account/messaging/dev-tools/api-explorer/message-create)  
+	a. Copy contents of ‘From Number’ for use below [6]
 
