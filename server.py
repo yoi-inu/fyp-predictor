@@ -211,31 +211,6 @@ def alertemg():
 	latitude =  float(request.args.get("latitude"))
 	longitude =  float(request.args.get("longitude"))
 
-	# #Location Of Hospitals
-	# locations = [
-	# 	[12.8087, 77.6946,'Narayana hrudayalaya'],
-	# 	[12.9166, 77.5996,'Jayadeva Hospital'],
-	# 	[12.8953, 77.5981,'Fortis Hospital'],
-	# 	[12.8399, 77.6770,'Electronic City'],
-	# 	[12.8971, 77.5968,'Apollo Hospital'],
-	# 	[12.9308, 77.6184,'St Johns Hospital']
-	# ]
-
-	# min = 10000
-	# i = 0
-	# flag_final = 0
-
-	# for location in locations:
-	# 	distance = location[0] - latitude
-
-	# 	if(distance < 0):
-	# 		distance = -1 * distance
-
-	# 	if(distance < min):
-	# 		min = distance
-	# 		flag_final = i
-	# 	i = i + 1
-
 	with open('locations.csv', 'r') as f:
 	  reader = csv.reader(f, delimiter=',', quotechar="'")
 	  locations = list(reader)		
@@ -262,23 +237,23 @@ def alertemg():
 	SMSBody = SMSBody + ", NearestHospital: " + str(locations[min_i][2]) + " " + str(locations[min_i][0]) + "," + str(locations[min_i][1])
 
 
-	SMSTo = "+918197749879"
-	SMSFrom = "+12023354404"
+	SMSTo = "<SMS-To-Unconfigured>"
+	SMSFrom = "<SMS-From-Unconfigured>"
 	retVal = "Emergency SMS Sent:\n\"To: " + SMSTo + "\nContents: " + SMSBody + "\""
 	print retVal
 
 	# put your own credentials here 
-	ACCOUNT_SID = "AC7f0d7576b171275eeb549176f0a889a3" 
-	AUTH_TOKEN = "a8cbf4b14e6453a0594256b7d3702d81" 
+	ACCOUNT_SID = "<ACCOUNT_SID_FROM_TWILIO>" 
+	AUTH_TOKEN = "<AUTHENTICATION_TOKEN_FROM_TWILIO>" 
 
-	# <start> Comment this section to disble the texts during debugging
-	client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
+	# <start> Uncomment this section to enable actual SMS Sending Once Connected to Twilio Account
+	# client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
 	 
-	client.messages.create(
-		to=SMSTo, 
-		from_=SMSFrom, 
-		body=SMSBody,  
-	)
+	# client.messages.create(
+	# 	to=SMSTo, 
+	# 	from_=SMSFrom, 
+	# 	body=SMSBody,  
+	# )
 	# <end> Comment this section to disble the texts during debugging 
 
 	return retVal
