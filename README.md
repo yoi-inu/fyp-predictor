@@ -7,7 +7,7 @@ A Python & Flask based server that receives request from the client (Cardia Mobi
   1. Classify a set of inputs (user charactersitics) according to *Angiographic Disease Status*.
   2. Receives a request to send SMS messages to Emergency Contacts via the [Twilio Messaging API](https://www.twilio.com/sms).
   
-You can see a demo [here](fyp-predictor.herokuapp.com). Note: Since it's a free-tier dyno, the app will probably be asleep & the first request will take some time to be served. Be patient =P
+You can see a demo [here](https://fyp-predictor.herokuapp.com). Note: Since it's a free-tier dyno, the app will probably be asleep & the first request will take some time to be served. Be patient =P
 
 # Requirements
 
